@@ -1,1 +1,17 @@
 {% extends 'base.html' %}
+
+<h1> Cours </h1>
+<ul id = "cours"></ul>
+
+<script>
+    fetch("http://localhost:8000/cours/")
+    .then(response => response.json())
+    .then(data => {
+        const coursList = document.getElementbyId("cours")
+        data.cours.forEach(cours => {
+            const li = document.createElement("li")
+            li.textContent = cours.title
+            coursList.appendChild(li)
+        })
+    }).catch(err => console.log(err))
+</script>
