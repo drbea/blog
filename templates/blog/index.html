@@ -1,5 +1,82 @@
 {% extends 'base.html' %}
 
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Actualités de Programmation</h1>
+    <div class="row">
+
+    {% if articles %}
+        {% for article in page_obj %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                {% if article.url_to_image %}
+                <img src="{{ article.url_to_image }}" alt="{{ article.title }}" class="card-img-top" style="max-height: 200px; max-width: 200px;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ article.title }}</h5>
+                    <p class="card-text">{{ article.content }}</p>
+                    <p class="card-text"><small class="text-muted">Par {{ article.author }} le {{ article.publication_date|date:"d F Y" }}</small></p>
+                    <a href="{{ article.url }}" class="btn btn-primary">Lire plus</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Oups !!!</h5>
+                    <p class="card-text">Nous n'avons pas de résultats pour le moment pour '{{ q }}'</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Pagination">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; Première</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Précédente</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo; Première</span>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">Précédente</span>
+                </li>
+            {% endif %}
+
+            <li class="page-item disabled">
+                <span class="page-link">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
+            </li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivante</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Dernière &raquo;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Suivante</span>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">Dernière &raquo;</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock content %}
+
 <h1> Cours </h1>
 <ul id = "cours"></ul>
 
@@ -15,3 +92,4 @@
         })
     }).catch(err => console.log(err))
 </script>
+

@@ -1,0 +1,50 @@
+{% extends 'base_room.html' %}
+
+{% block title %} Room {% endblock title %}
+
+
+{% block content %}
+<form class="d-flex">
+    {% comment %} <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> {% endcomment %}
+    {% comment %} <button name="q" class="btn btn-outline-success" type="submit">Search Rooms...</button> {% endcomment %}
+    <input type="text" name="q" class="btn btn-outline-success" type="submit" placeholder="Search Rooms..."/>
+</form>
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+</style>
+    <div>
+        
+        {% if user.is_authenticated %}
+            <p>user:{{user.username}}</p>
+            <a href="{% url 'authentification:logout' %}">logout</a>
+            {% else %}
+            <a href="{% url 'authentification:login' %}">login</a>
+            <a href="{% url 'authentification:register' %}">register</a>
+            
+        {% endif %}
+            
+    </div>
+    <h1 class="center">Room Template</h1>
+    <div class="home-container">
+        <div>
+            {% include 'room/topic_component.html' %}
+        </div>
+
+       <div>
+        <div>
+            <h5> {{rooms.count}} rooms availlable. </h5>
+            <a href="{% url 'room:create-room' %}" >create room</a>
+        </div>
+            {% include 'room/feed_component.html' %}
+       </div>
+
+       <div>
+        {% include 'room/activity_component.html' %}
+       </div>
+    </div>
+{% endblock content %}
+    
+    

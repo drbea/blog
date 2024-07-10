@@ -1,0 +1,21 @@
+{% load static %}
+{% block content %}
+<main class="profile-page layout layout--3">
+  <div class="participants">
+    <h3 class="participants__top">Participants <span>({{participants.count}} Joined)</span></h3>
+    <div class="participants__list scroll">
+      {% for user in participants %}
+      <a href="{%  url 'authentification:userProfile' user.id %}" class="participant">
+        <div class="avatar avatar--medium">
+          <img src="https://randomuser.me/api/portraits/women/37.jpg" />
+        </div>
+        <p>
+          {{user.username|upper}}
+          <span>@{{user.username}}</span>
+        </p>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</main>
+{% endblock content %}

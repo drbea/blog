@@ -1,0 +1,63 @@
+{% comment %} {% for room in rooms %}
+<div>
+  <div>
+    {% if request.user == room.host %}
+    <a href="{% url 'room:update-room' room.id %}">Edit</a>
+    <a href="{% url 'room:delete-room' room.id %}">Delete</a>
+    {% endif %}
+  </div>
+  <a href="{% url 'authentification:userProfile' user.id %}"
+    >@{{room.host.username}}
+  </a>
+  <h5>
+    {{room.id}}. <a href="{% url 'room:room' room.id %}">{{room.name}}</a>
+  </h5>
+  <br />
+  <small> {{room.topic.name}} </small>
+  <hr />
+</div>
+{% endfor %}  {% endcomment %}
+{% for room in rooms %}
+<div class="roomListRoom">
+    <div class="roomListRoom__header">
+        <a href="{% url 'authentification:userProfile' room.host.id %}" class="roomListRoom__author">
+            <div class="avatar avatar--small">
+                <img src="https://randomuser.me/api/portraits/women/37.jpg"/>
+            </div>
+            <span>@{{room.host.username}} </span>
+        </a>
+    </div>
+    <div class="roomListRoom__actions">
+        <span>{{room.created|timesince}}</span>
+    </div>
+    {% if request.user == room.host %}
+    <div class="roomListRoom__actions">
+      <a href="{% url 'room:delete-room' room.id %}">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+          <title>remove</title>
+          <path
+            d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z">
+          </path>
+        </svg>
+        remove
+      </a>
+    </div>
+    {% endif %}
+    <div class="roomListRoom__content">
+        <a href="{% url 'room:room' room.id %}">{{room.name}}</a>
+        <p>{{room.description}}</p>
+    </div>
+    <div class="roomListRoom__meta">
+        <a href="{% url 'room:index' %}" class="roomListRoom__joined">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32"
+                height="32" viewBox="0 0 32 32">
+                <title>user-group</title>
+            </svg>
+            {{room.participants.all.count}} Joined
+        </a>
+        <p class="roomListRoom__topic">{{room.topic.name}}</p>
+    </div>
+<br>
+</div>
+{% endfor %}
+

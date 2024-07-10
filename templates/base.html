@@ -4,18 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Tech 224-{% block title %}{% endblock %}</title>
+    <title>Tech 224 - {% block title %}{% endblock %}</title>
     <!-- Inclure le fichier CSS de Bootstrap -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- Votre propre fichier CSS -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Styles supplémentaires pour personnalisation -->
+    <style>
+        /* Styles personnalisés ici */
+        body {
+            background-color: #f8f9fa; /* Couleur de fond */
+            color: #343a40; /* Couleur du texte */
+        }
+        .navbar {
+            background-color: #ffffff; /* Couleur de fond de la barre de navigation */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Ombre légère */
+        }
+        .navbar-brand {
+            color: #007bff; /* Couleur du texte du logo */
+        }
+        .navbar-toggler-icon {
+            background-color: #007bff; /* Couleur de l'icône du bouton de navigation */
+        }
+        .nav-link {
+            color: #343a40; /* Couleur du texte des liens de navigation */
+        }
+        .nav-link:hover, .nav-link:focus {
+            color: #007bff; /* Couleur du texte au survol/focus des liens de navigation */
+        }
+        .btn-outline-success {
+            color: #28a745; /* Couleur du texte du bouton de recherche */
+            border-color: #28a745; /* Couleur de la bordure du bouton de recherche */
+        }
+        .btn-outline-success:hover {
+            background-color: #28a745; /* Couleur de fond au survol du bouton de recherche */
+            color: #ffffff; /* Couleur du texte au survol du bouton de recherche */
+        }
+        .sidebar {
+            background-color: #ffffff; /* Couleur de fond de la barre latérale */
+            border-right: 1px solid #e9ecef; /* Bordure légère */
+        }
+        .sidebar .nav-link.active {
+            background-color: #007bff; /* Couleur de fond des liens de navigation actifs dans la barre latérale */
+            color: #ffffff; /* Couleur du texte des liens actifs */
+        }
+        .sidebar .nav-link:hover {
+            background-color: #f8f9fa; /* Couleur de fond au survol des liens de navigation dans la barre latérale */
+        }
+    </style>
 </head>
 <body>
 
-    
 {% block navbar %}
-        
-        
 <!-- Barre de navigation -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
@@ -31,23 +71,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'blog:home' %}"><img src="{% static 'img_for_link/home.jpeg' %}" alt="Home" width="20" class="me-1">Home</a>
+                    <a class="nav-link" href="{% url 'blog:home' %}"><img src="{% static 'img_for_link/home.jpeg' %}" alt="Home" width="20" class="me-1">Accueil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><img src="{% static 'img_for_link/blog.jpeg' %}" alt="Blog" width="20" class="me-1">Blog</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'blog:profile' %}"><img src="{% static 'img_for_link/profile.jpeg'' %}" alt="Profile" width="20" class="me-1">Profile</a>
+                    <a class="nav-link" href="{% url 'blog:profile' %}"><img src="{% static 'img_for_link/profile.jpeg' %}" alt="Profile" width="20" class="me-1">Profil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><img src="{% static 'img_for_link/forum.jpeg'' %}" alt="Forum" width="20" class="me-1">Forum</a>
+                    <a class="nav-link" href="{% url 'room:index' %}"><img src="{% static 'img_for_link/forum.jpeg' %}" alt="Forum" width="20" class="me-1">Forum</a>
                 </li>
             </ul>
             
             <!-- Barre de recherche -->
             <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input name="q" class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
+                <button class="btn btn-outline-success" type="submit">Rechercher</button>
             </form>
         </div>
     </div>
@@ -55,8 +95,6 @@
 {% endblock navbar %}
 
 <!-- Contenu principal -->
-{% block sidebar %}
-
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
@@ -71,7 +109,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <img src="{% static 'img_for_link/actu.jpeg'' %}" alt="Actualités" width="30" class="me-1">
+                            <img src="{% static 'img_for_link/actu.jpeg' %}" alt="Actualités" width="30" class="me-1">
                             Actualités
                         </a>
                     </li>
@@ -85,8 +123,6 @@
             </div>
         </nav>
 
-{% endblock sidebar %}
-
         <!-- Contenu de la page -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             {% block content %}
@@ -97,5 +133,6 @@
 
 <!-- Inclure le fichier JS de Bootstrap -->
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
 </body>
 </html>

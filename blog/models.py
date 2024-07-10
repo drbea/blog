@@ -35,3 +35,16 @@ class Product(models.Model):
     name = models.CharField(max_length=150)
     description = models.TextField(null = True, blank = True)
     category = models.ForeignKey("blog.Category", on_delete=models.CASCADE)
+
+
+class Article(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    author = models.CharField(max_length=100, null=True, blank=True)
+    publication_date = models.DateTimeField()
+    url = models.URLField()
+    url_to_image = models.URLField(null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+   

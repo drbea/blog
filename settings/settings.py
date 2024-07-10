@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
-from dotenv import SECRET_KEY
+# from dotenv import SECRET_KEY
 from authentification.info import EMAIL_USE_TLS, EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT
 
 EMAIL_USE_TLS = EMAIL_USE_TLS
@@ -28,34 +28,42 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRET_KEY
+# SECRET_KEY = SECRET_KEY
+
+SECRET_KEY = "nmdbhjf,sjf,ddksui79/'1`]8yryeiushfe"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
+    'debug_toolbar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    'blog.apps.BlogConfig',
-    'authentification.apps.AuthentificationConfig',
-    'chatbot.apps.ChatbotConfig',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders',
+
+    'blog.apps.BlogConfig',
+    'authentification.apps.AuthentificationConfig',
+    'room',
+    # 'chatbot.apps.ChatbotConfig',
+
 
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,13 +72,22 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+
+    
 ]
 CORS_ALLOWED_ORIGINS = [
-
     "http://localhost:3000",
+    "http://127.0.0.1:3000",
+
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+
 ]
+
+CORS_ALLOWED_All_ORIGINS = True
+CORS_ALLOW_HEADERS = ['*']
+CORS_ALLOW_CREDENTIALS = True
+
 
 ROOT_URLCONF = 'settings.urls'
 
@@ -148,3 +165,5 @@ STATICFILES_DIRS = [ BASE_DIR / "static" ]
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
